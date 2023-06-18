@@ -22,6 +22,18 @@ interface UseFormReturn<TValues> {
   Form: React.FC<FormProps<TValues>>;
   Field: <K extends keyof TValues>(props: FieldProps<K, TValues[K]>) => JSX.Element;
   Submit: (props: SubmitProps<TValues>) => JSX.Element;
+
+  _Subscriber: (props: FormSubscriberProps<TValues>) => JSX.Element;
+}
+
+interface FormSubscriberProps<TValues> {
+  state: 'idle' | 'validating' | 'invalid' | 'valid' | 'submitting' | 'submitted';
+  submitCount: number;
+
+  canSubmit: boolean;
+  isSubmitting: boolean;
+
+  values: TValues;
 }
 
 type SubmitProps<TValues> = {
