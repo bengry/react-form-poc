@@ -21,7 +21,16 @@ type UseFormOptionsValues<TValues> = RequireAtLeastOne<
 interface UseFormReturn<TValues> {
   Form: React.FC<FormProps<TValues>>;
   Field: <K extends keyof TValues>(props: FieldProps<K, TValues[K]>) => JSX.Element;
+  Submit: (props: SubmitProps<TValues>) => JSX.Element;
 }
+
+type SubmitProps<TValues> = {
+  children: (props: {
+    getSubmitButtonProps(
+      partialProps?: Partial<React.ButtonHTMLAttributes<HTMLButtonElement>>
+    ): React.ButtonHTMLAttributes<HTMLButtonElement>;
+  }) => JSX.Element;
+};
 
 export type FormProps<TValues> = React.FormHTMLAttributes<HTMLFormElement>;
 
