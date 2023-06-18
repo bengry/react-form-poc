@@ -5,6 +5,11 @@ export default function App() {
   const form = useForm({
     initialValues: {
       age: 10,
+      a: {
+        b: {
+          c: 1,
+        },
+      },
     },
     schema: z
       .object({
@@ -29,6 +34,15 @@ export default function App() {
         </form.Field>
 
         {/* test cases ⬇️ */}
+        <form.Field
+          name="a.b"
+          schema={z.object({
+            c: z.boolean(), // `c` should be a boolean
+          })}
+        >
+          {fieldProps => <input {...fieldProps} />}
+        </form.Field>
+
         <form.Field
           name="lastName"
           initialValue={12} // expected a string

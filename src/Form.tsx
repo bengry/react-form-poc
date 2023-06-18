@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RequireAtLeastOne, RequireExactlyOne, Simplify } from 'type-fest';
+import { Get, RequireAtLeastOne, RequireExactlyOne, Simplify } from 'type-fest';
+import { ObjectPath } from 'typedash';
 import { ZodType, z } from 'zod';
 
 type InferValues<TOptions extends Pick<UseFormOptionsValues<any>, 'initialValues' | 'schema'>> =
@@ -20,7 +21,9 @@ type UseFormOptionsValues<TValues> = RequireAtLeastOne<
 
 interface UseFormReturn<TValues> {
   Form: React.FC<FormProps<TValues>>;
-  Field: <K extends keyof TValues>(props: FieldProps<K, TValues[K]>) => JSX.Element;
+  Field: <TPath extends ObjectPath<TValues>>(
+    props: FieldProps<TPath, Get<TValues, TPath>>
+  ) => JSX.Element;
   Submit: (props: SubmitProps<TValues>) => JSX.Element;
 
   _Subscriber: (props: FormSubscriberProps<TValues>) => JSX.Element;
